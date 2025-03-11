@@ -1,0 +1,15 @@
+---
+- name: Verify paloaltonetworks.panos collection
+  hosts: localhost
+  gather_facts: no
+  tasks:
+   - name: Check if collection is available
+     paloaltonetworks.panos.panos_facts:
+       provider:
+         username: "{{ username }}"
+         password: "{{ password }}"
+         ip_address: "{{ ip_address }}"
+     register: panos_facts
+   - name: Display panos_facts
+     debug:
+       var: panos_facts
