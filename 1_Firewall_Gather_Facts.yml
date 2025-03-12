@@ -9,7 +9,7 @@
          api_key: "{{ api }}"
          #username: "{{ username }}"
          #password: "{{ password }}"
-         #ip_address: "{{ ip_address }}"
+         ip_address: "{{ ip_address }}"
      register: panos_facts
    - name: Display panos_facts
      debug:
