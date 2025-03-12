@@ -1,0 +1,35 @@
+---
+- name: Upgrade PAN-OS on a standalone firewall
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Download PAN-OS software version
+      paloaltonetworks.panos.panos_software:
+        provider:
+          ip_address: "{{ ip_address }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+        version: "{{ software_version }}"
+        download: yes
+      register: download_status
+    - name: Install PAN-OS software version
+      paloaltonetworks.panos.panos_software:
+        provider:
+          ip_address: "{{ ip_address }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+        version: "{{ software_version }}"
+        install: yes
+      when: download_status.changed
+      register: install_status
+    - name: Reboot firewall to complete upgrade
+      paloaltonetworks.panos.panos_op:
+        provider:
+          ip_address: "{{ ip_address }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+        cmd: request restart system
+      when: install_status.changed
+
+ 
