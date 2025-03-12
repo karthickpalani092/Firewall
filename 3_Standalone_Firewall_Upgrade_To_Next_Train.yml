@@ -10,7 +10,7 @@
           ip_address: "{{ ip_address }}"
           username: "{{ username }}"
           password: "{{ password }}"
-          version: "{{ software_version }}"
+          version: "{{ base_software_version }}"
           download: yes
       register: download_status
     - name: Download PAN-OS Software To Next Train Preferred Version
@@ -19,7 +19,7 @@
           ip_address: "{{ ip_address }}"
           username: "{{ username }}"
           password: "{{ password }}"
-          version: "{{ software_version }}"
+          version: "{{ preferred_software_version }}"
           download: yes
         when: download_status.changed
         register: download_status
@@ -29,12 +29,11 @@
           ip_address: "{{ ip_address }}"
           username: "{{ username }}"
           password: "{{ password }}"
-          version: "{{ software_version }}"
+          version: "{{ preferred_software_version }}"
           install: yes
         when: download_status.changed
         register: install_status
-    - name: Reboot Standalone Firewall To Complete Upgrade To Next Train Preferred
-        Version
+    - name: Reboot Standalone Firewall To Complete Upgrade To Next Train Preferred Version
       paloaltonetworks.panos.panos_op:
         provider:
           ip_address: "{{ ip_address }}"
