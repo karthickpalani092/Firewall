@@ -1,14 +1,6 @@
 ---
 - name: Verify paloaltonetworks.panos collection
   hosts: localhost
-  vars_prompt:
-    - name: "username"
-      prompt: "Enter your username"
-      private: no
-    - name: "password"
-      prompt: "Enter your password"
-    - name: "ip_address"
-      prompt: "Enter your PAN firewall IP address"
   gather_facts: no
   tasks:
    - name: Check if collection is available
