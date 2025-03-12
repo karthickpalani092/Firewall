@@ -1,10 +1,10 @@
 ---
-- name: Upgrade PAN-OS on a standalone firewall
+- name: Upgrade PAN-OS Standalone Firewall Within Same Train
   hosts: localhost
   connection: local
   gather_facts: no
   tasks:
-    - name: Download PAN-OS software version
+    - name: Download PAN-OS Software Version Within Same Train
       paloaltonetworks.panos.panos_software:
         provider:
           ip_address: "{{ ip_address }}"
@@ -13,7 +13,7 @@
         version: "{{ software_version }}"
         download: yes
       register: download_status
-    - name: Install PAN-OS software version
+    - name: Install PAN-OS Software Version Within Same Train
       paloaltonetworks.panos.panos_software:
         provider:
           ip_address: "{{ ip_address }}"
@@ -23,7 +23,7 @@
         install: yes
       when: download_status.changed
       register: install_status
-    - name: Reboot firewall to complete upgrade
+    - name: Reboot Standalone Firewall To Complete Upgrade Within Same Train
       paloaltonetworks.panos.panos_op:
         provider:
           ip_address: "{{ ip_address }}"
