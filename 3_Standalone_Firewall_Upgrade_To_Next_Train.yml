@@ -8,8 +8,7 @@
       paloaltonetworks.panos.panos_software:
         provider:
           ip_address: "{{ ip_address }}"
-          username: "{{ username }}"
-          password: "{{ password }}"
+          api_key: "{{ api }}"
           version: "{{ base_software_version }}"
           download: yes
       register: download_status
@@ -17,8 +16,7 @@
       paloaltonetworks.panos.panos_software:
         provider:
           ip_address: "{{ ip_address }}"
-          username: "{{ username }}"
-          password: "{{ password }}"
+          api_key: "{{ api }}"
           version: "{{ preferred_software_version }}"
           download: yes
         when: download_status.changed
@@ -27,8 +25,7 @@
       paloaltonetworks.panos.panos_software:
         provider:
           ip_address: "{{ ip_address }}"
-          username: "{{ username }}"
-          password: "{{ password }}"
+          api_key: "{{ api }}"
           version: "{{ preferred_software_version }}"
           install: yes
         when: download_status.changed
