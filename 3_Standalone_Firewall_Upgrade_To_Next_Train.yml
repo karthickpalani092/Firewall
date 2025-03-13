@@ -9,27 +9,27 @@
         provider:
           ip_address: "{{ ip_address }}"
           api_key: "{{ api }}"
-          version: "{{ base_software_version }}"
-          download: yes
+        version: "{{ base_software_version }}"
+        download: yes
       register: download_status
     - name: Download PAN-OS Software To Next Train Preferred Version
       paloaltonetworks.panos.panos_software:
         provider:
           ip_address: "{{ ip_address }}"
           api_key: "{{ api }}"
-          version: "{{ preferred_software_version }}"
-          download: yes
-        when: download_status.changed
-        register: download_status
+        version: "{{ preferred_software_version }}"
+        download: yes
+      when: download_status.changed
+      register: download_status
     - name: Install PAN-OS Software To Next Train Preferred Version
       paloaltonetworks.panos.panos_software:
         provider:
           ip_address: "{{ ip_address }}"
           api_key: "{{ api }}"
-          version: "{{ preferred_software_version }}"
-          install: yes
-        when: download_status.changed
-        register: install_status
+        version: "{{ preferred_software_version }}"
+        install: yes
+      when: download_status.changed
+      register: install_status
     - name: Reboot Standalone Firewall To Complete Upgrade To Next Train Preferred Version
       paloaltonetworks.panos.panos_restart:
         provider:
