@@ -8,8 +8,7 @@
       paloaltonetworks.panos.panos_software:
         provider:
           ip_address: "{{ ip_address }}"
-          username: "{{ username }}"
-          password: "{{ password }}"
+          api_key: "{{ api }}"
         version: "{{ software_version }}"
         download: yes
       register: download_status
@@ -17,19 +16,16 @@
       paloaltonetworks.panos.panos_software:
         provider:
           ip_address: "{{ ip_address }}"
-          username: "{{ username }}"
-          password: "{{ password }}"
+          api_key: "{{ api }}"
         version: "{{ software_version }}"
         install: yes
       when: download_status.changed
       register: install_status
     - name: Reboot Standalone Firewall To Complete Upgrade Within Same Train
-      paloaltonetworks.panos.panos_op:
+      paloaltonetworks.panos.panos_restart:
         provider:
           ip_address: "{{ ip_address }}"
-          username: "{{ username }}"
-          password: "{{ password }}"
-        cmd: request restart system
+          api_key: "{{ api }}"
       when: install_status.changed
 
  
