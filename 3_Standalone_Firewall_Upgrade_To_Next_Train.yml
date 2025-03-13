@@ -31,10 +31,8 @@
         when: download_status.changed
         register: install_status
     - name: Reboot Standalone Firewall To Complete Upgrade To Next Train Preferred Version
-      paloaltonetworks.panos.panos_op:
+      paloaltonetworks.panos.panos_restart:
         provider:
           ip_address: "{{ ip_address }}"
-          username: "{{ username }}"
-          password: "{{ password }}"
-        cmd: request restart system
+          api_key: "{{ api }}"
       when: install_status.changed
